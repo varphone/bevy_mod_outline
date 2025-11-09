@@ -1,10 +1,8 @@
 use std::f32::consts::PI;
 
-use bevy::{
-    prelude::*,
-    render::{camera::Viewport, view::RenderLayers},
-    window::PrimaryWindow,
-};
+use bevy::camera::{visibility::RenderLayers, Viewport};
+use bevy::{prelude::*, window::PrimaryWindow};
+
 use bevy_mod_outline::{OutlinePlugin, OutlineRenderLayers, OutlineVolume};
 
 #[bevy_main]

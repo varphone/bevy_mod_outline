@@ -1,5 +1,5 @@
+use bevy::core_pipeline::FullscreenShader;
 use bevy::{
-    core_pipeline::fullscreen_vertex_shader::fullscreen_shader_vertex_state,
     platform::collections::HashMap,
     prelude::*,
     render::{
@@ -51,6 +51,7 @@ pub(crate) struct ComposeOutputPipeline {
     pub(crate) layout: BindGroupLayout,
     pub(crate) sampler: Sampler,
     pub(crate) pipeline_cache: HashMap<ViewPipelineKey, CachedRenderPipelineId>,
+    pub(crate) fullscreen_shader: FullscreenShader,
 }
 
 impl FromWorld for ComposeOutputPipeline {
@@ -76,6 +77,7 @@ impl FromWorld for ComposeOutputPipeline {
             layout,
             sampler,
             pipeline_cache: HashMap::new(),
+            fullscreen_shader: world.resource::<FullscreenShader>().clone(),
         }
     }
 }
@@ -90,11 +92,11 @@ impl ComposeOutputPipeline {
             pipeline_cache.queue_render_pipeline(RenderPipelineDescriptor {
                 label: Some("outline_flood_compose_output_pipeline".into()),
                 layout: vec![self.layout.clone()],
-                vertex: fullscreen_shader_vertex_state(),
+                vertex: self.fullscreen_shader.to_vertex_state(),
                 fragment: Some(FragmentState {
                     shader: COMPOSE_OUTPUT_SHADER_HANDLE,
                     shader_defs: vec![],
-                    entry_point: "fragment".into(),
+                    entry_point: Some("fragment".into()),
                     targets: vec![Some(ColorTargetState {
                         format: if key.hdr_format() {
                             ViewTarget::TEXTURE_FORMAT_HDR

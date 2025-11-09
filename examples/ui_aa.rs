@@ -1,19 +1,14 @@
-use bevy::{
-    core_pipeline::{
-        experimental::taa::{TemporalAntiAliasPlugin, TemporalAntiAliasing},
-        fxaa::Fxaa,
-        smaa::{Smaa, SmaaPreset},
-    },
-    prelude::*,
-};
-
+use bevy::anti_alias::fxaa::Fxaa;
+use bevy::anti_alias::smaa::{Smaa, SmaaPreset};
+use bevy::anti_alias::taa::TemporalAntiAliasing;
+use bevy::prelude::*;
 use bevy_mod_outline::*;
 
 #[bevy_main]
 fn main() {
     App::new()
         .insert_resource(ClearColor(Color::BLACK))
-        .add_plugins((DefaultPlugins, TemporalAntiAliasPlugin, OutlinePlugin))
+        .add_plugins((DefaultPlugins, OutlinePlugin))
         .insert_state(AAMode::NoAA)
         .add_systems(Startup, setup)
         .add_systems(Update, (bounce, highlight, interaction))
@@ -142,7 +137,7 @@ fn setup(
                             align_items: AlignItems::Center,
                             ..default()
                         },
-                        BorderColor(Color::BLACK),
+                        BorderColor::all(Color::BLACK),
                         BorderRadius::MAX,
                         BackgroundColor(Color::srgb(0.2, 0.2, 0.2)),
                         mode,
@@ -182,9 +177,9 @@ fn bounce(mut query: Query<&mut Transform, With<Bounce>>, timer: Res<Time>, mut 
 fn highlight(mut query: Query<(&mut BorderColor, &AAMode)>, state: Res<State<AAMode>>) {
     for (mut border, m) in query.iter_mut() {
         *border = if m == state.get() {
-            BorderColor(Color::srgb(0.0, 0.0, 1.0))
+            BorderColor::all(Color::srgb(0.0, 0.0, 1.0))
         } else {
-            BorderColor(Color::BLACK)
+            BorderColor::all(Color::BLACK)
         };
     }
 }

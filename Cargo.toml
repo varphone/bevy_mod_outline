@@ -11,7 +11,7 @@ keywords = ["gamedev", "bevy", "outline"]
 categories = ["game-engines", "rendering"]
 
 [dependencies]
-bevy = { version = "0.16.0", default-features = false, features = [
+bevy = { version = "0.17.0", default-features = false, features = [
     "std",
     "async_executor",
     "bevy_log",
@@ -19,11 +19,11 @@ bevy = { version = "0.16.0", default-features = false, features = [
     "bevy_image",
     "bevy_pbr",
 ] }
-bitfield = "0.15"
+bitfield = "0.19"
 interpolation = { version = "0.3", optional = true }
-thiserror = "1.0"
+thiserror = "2.0"
 nonmax = "0.5"
-wgpu-types = "24"
+wgpu-types = "26"
 itertools = { version = "0.14", optional = true }
 
 [features]
@@ -33,7 +33,7 @@ reflect = []
 scene = ["bevy/bevy_scene"]
 
 [dev-dependencies]
-bevy = { version = "0.16.0", default-features = false, features = [
+bevy = { version = "0.17.0", default-features = false, features = [
     "animation",
     "bevy_gltf",
     "bevy_mesh_picking_backend",
@@ -44,13 +44,17 @@ bevy = { version = "0.16.0", default-features = false, features = [
     "bevy_ui",
     "bevy_window",
     "bevy_winit",
+    "bevy_anti_alias",
+    "bevy_post_process",
     "default_font",
+    "hdr",
     "png",
-    "x11",
+    "reflect_auto_register",
     "ktx2",
     "smaa_luts",
     "tonemapping_luts",
-    "zstd",
+    "x11",
+    "zstd_rust",
 ] }
 
 [[example]]

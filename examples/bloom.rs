@@ -1,9 +1,8 @@
 use std::f32::consts::{PI, TAU};
 
-use bevy::{
-    core_pipeline::bloom::{Bloom, BloomCompositeMode},
-    prelude::*,
-};
+use bevy::post_process::bloom::{Bloom, BloomCompositeMode};
+use bevy::prelude::*;
+use bevy::render::view::Hdr;
 
 use bevy_mod_outline::*;
 
@@ -69,10 +68,7 @@ fn setup(
     // Add HDR camera
     commands.spawn((
         Camera3d::default(),
-        Camera {
-            hdr: true,
-            ..default()
-        },
+        Hdr,
         Transform::from_xyz(0.0, 3.0, 4.0).looking_at(Vec3::ZERO, Vec3::Y),
         Msaa::Sample4,
         Bloom {

@@ -1,3 +1,4 @@
+use bevy::camera::visibility::{PreviousVisibleEntities, RenderLayers};
 use bevy::{
     math::Affine3,
     pbr::SkinUniforms,
@@ -11,7 +12,6 @@ use bevy::{
         renderer::RenderDevice,
         sync_world::{MainEntity, MainEntityHashMap, RenderEntity},
         texture::{FallbackImage, GpuImage},
-        view::{PreviousVisibleEntities, RenderLayers},
         Extract,
     },
 };
